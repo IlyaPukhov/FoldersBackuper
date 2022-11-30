@@ -35,7 +35,7 @@ public class ZipUtils {
 
     private static void removeOlderBackups() throws IOException {
         File backupDir = new File(BACKUP_PATH);
-        if (Objects.requireNonNull(backupDir.list()).length >= 4) {
+        if (backupDir.list() != null && Objects.requireNonNull(backupDir.list()).length >= 4) {
             String previousDate = now().minusDays(7).format(DateTimeFormatter.ofPattern("dd-MM-yy"));
             Files.deleteIfExists(getFinalPath(previousDate));
         }
