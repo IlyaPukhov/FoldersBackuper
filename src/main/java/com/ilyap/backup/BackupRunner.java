@@ -2,7 +2,7 @@ package com.ilyap.backup;
 
 import java.io.IOException;
 
-public class Main {
+public class BackupRunner {
 
     public static void main(String[] args) {
         try {
