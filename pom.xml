@@ -47,7 +47,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                com.ilyap.backup.ScramblerLauncher
+                                com.ilyap.backup.BackupRunner
                             </mainClass>
                         </manifest>
                     </archive>
