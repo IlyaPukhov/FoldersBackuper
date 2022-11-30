@@ -18,6 +18,7 @@ public class ZipUtils {
     private static final String currentDate = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
     private static final String SOURCE_PATH = String.join(File.separator, "C:", "Users", "IlyaPukhov", "");
     private static final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
+    private static final int LIMIT = 4;
 
 
     public static void createBackup(String... dirs) throws IOException {
@@ -35,8 +36,8 @@ public class ZipUtils {
 
     private static void removeOlderBackups() throws IOException {
         File backupDir = new File(BACKUP_PATH);
-        if (backupDir.list() != null && Objects.requireNonNull(backupDir.list()).length >= 4) {
-            String previousDate = now().minusDays(7).format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+        if (backupDir.list() != null && Objects.requireNonNull(backupDir.list()).length >= LIMIT) {
+            String previousDate = now().minusDays(LIMIT).format(DateTimeFormatter.ofPattern("dd-MM-yy"));
             Files.deleteIfExists(getFinalPath(previousDate));
         }
     }
