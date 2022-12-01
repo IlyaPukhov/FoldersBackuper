@@ -15,11 +15,10 @@ import static java.time.LocalDateTime.now;
 
 @UtilityClass
 public class ZipUtils {
-    private final String currentDate = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+    private final String CURRENT_DATE = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
     private final String SOURCE_PATH = String.join(File.separator, "C:", "Users", "IlyaPukhov", "");
     private final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
     private final int LIMIT = 4;
-
 
     public void createBackup(String... dirs) throws IOException {
         removeOlderBackups();
@@ -28,7 +27,7 @@ public class ZipUtils {
         File[] directories = collectDirectories(dirs);
 
         for (File dir : directories) {
-            try (ZipFile zipfile = new ZipFile(getFinalPath(currentDate).toFile())) {
+            try (ZipFile zipfile = new ZipFile(getFinalPath(CURRENT_DATE).toFile())) {
                 zipfile.addFolder(dir);
             }
         }
