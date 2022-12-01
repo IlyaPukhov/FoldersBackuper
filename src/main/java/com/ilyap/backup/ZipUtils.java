@@ -15,13 +15,13 @@ import static java.time.LocalDateTime.now;
 
 @UtilityClass
 public class ZipUtils {
-    private static final String currentDate = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
-    private static final String SOURCE_PATH = String.join(File.separator, "C:", "Users", "IlyaPukhov", "");
-    private static final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
-    private static final int LIMIT = 4;
+    private final String currentDate = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+    private final String SOURCE_PATH = String.join(File.separator, "C:", "Users", "IlyaPukhov", "");
+    private final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
+    private final int LIMIT = 4;
 
 
-    public static void createBackup(String... dirs) throws IOException {
+    public void createBackup(String... dirs) throws IOException {
         removeOlderBackups();
 
         Files.createDirectories(Path.of(BACKUP_PATH));
@@ -34,7 +34,7 @@ public class ZipUtils {
         }
     }
 
-    private static void removeOlderBackups() throws IOException {
+    private void removeOlderBackups() throws IOException {
         File backupDir = new File(BACKUP_PATH);
         if (backupDir.list() != null && Objects.requireNonNull(backupDir.list()).length >= LIMIT) {
             String previousDate = now().minusDays(LIMIT).format(DateTimeFormatter.ofPattern("dd-MM-yy"));
@@ -42,11 +42,11 @@ public class ZipUtils {
         }
     }
 
-    private static Path getFinalPath(String date) {
+    private Path getFinalPath(String date) {
         return Path.of(BACKUP_PATH, "backup_" + date + ".zip");
     }
 
-    private static File[] collectDirectories(String... dirs) {
+    private File[] collectDirectories(String... dirs) {
         return Stream.of(dirs)
                 .map(el -> new File(SOURCE_PATH + el))
                 .toArray(File[]::new);
