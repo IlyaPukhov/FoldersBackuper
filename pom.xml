@@ -6,7 +6,7 @@
 
     <groupId>com.ilyap.backup</groupId>
     <artifactId>FoldersBackuper</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
 
     <dependencies>
         <dependency>
@@ -20,9 +20,7 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
-
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>

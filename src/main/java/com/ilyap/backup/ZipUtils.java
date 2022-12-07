@@ -15,9 +15,11 @@ import static java.time.LocalDateTime.now;
 
 @UtilityClass
 public class ZipUtils {
-    private final String CURRENT_DATE = now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+    final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yy");
+    final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
+
+    private final String CURRENT_DATE = now().format(FORMATTER);
     private final String SOURCE_PATH = String.join(File.separator, "C:", "Users", "IlyaPukhov", "");
-    private final String BACKUP_PATH = String.join(File.separator, "D:", "BACKUPS");
     private final int LIMIT = 4;
 
     public void createBackup(String... dirs) throws IOException {
@@ -35,8 +37,9 @@ public class ZipUtils {
 
     private void removeOlderBackups() throws IOException {
         File backupDir = new File(BACKUP_PATH);
+
         if (backupDir.list() != null && Objects.requireNonNull(backupDir.list()).length >= LIMIT) {
-            String previousDate = now().minusDays(LIMIT).format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+            String previousDate = OlderBackups.getOlderDate(BACKUP_PATH);
             Files.deleteIfExists(getFinalPath(previousDate));
         }
     }
